@@ -1,0 +1,39 @@
+name: Update Submodule Weekly
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"   # Sunday 00:00 UTC
+  workflow_dispatch:      # Manual trigger
+
+jobs:
+  update-submodule:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+          fetch-depth: 0   
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update submodule
+        run: |
+          git submodule set-branch --branch main Scream2WishAPP
+          git submodule update --remote --merge
+
+      - name: Commit & Push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add Scream2WishAPP
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: auto update submodule (weekly)"
+            git push
+          fi
