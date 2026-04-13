@@ -26,12 +26,12 @@ jobs:
           node-version: 24
 
       - name: Validate required fields
+        env:
+          WISH: ${{ github.event.client_payload.wish }}
+          NOTE: ${{ github.event.client_payload.note }}
+          FROM: ${{ github.event.client_payload.from }}
         run: |
           set -euo pipefail
-
-          WISH='${{ github.event.client_payload.wish }}'
-          NOTE='${{ github.event.client_payload.note }}'
-          FROM='${{ github.event.client_payload.from }}'
 
           if [ -z "$WISH" ] || [ -z "$NOTE" ] || [ -z "$FROM" ]; then
             echo "Error: wish, note, and from are all required fields."
@@ -57,7 +57,13 @@ jobs:
           git pull --rebase origin main
 
           git add wishes/
+          
+          if git diff-index --quiet HEAD --; then
+            echo "No new changes to commit. Exiting gracefully."
+            exit 0
+          fi
 
+          # Safe to interpolate here because it's just a commit message
           git commit -m "wish: add new entry from ${{ github.event.client_payload.from }}"
 
           git push origin main
