@@ -2,7 +2,7 @@
 
 Public JSON store for all wishes submitted through the **[Scream2Wish](https://github.com/RajnishKMehta/Scream2Wish)** Android app.
 
-Every time someone screams at their phone and submits a wish, it ends up here — permanently, publicly, for everyone to read.
+Every time someone screams at their phone and submits a wish, it ends up here permanently, publicly, for everyone to read.
 
 ---
 
@@ -64,7 +64,7 @@ One file per wish:
 
 ## Reading the Data
 
-Everything is plain public JSON — no auth required:
+Everything is plain public JSON (no auth required):
 
 ```
 https://raw.githubusercontent.com/RajnishKMehta/Scream2Wish-wishes/main/wishes/index.json
