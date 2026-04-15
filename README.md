@@ -38,7 +38,7 @@ An array of all wish IDs in chronological order (oldest first):
 ["7jlje7", "1pslr1", ...]
 ```
 
-### `wishes/{id}.json`
+### `wishes/${id}.json`
 
 One file per wish:
 
