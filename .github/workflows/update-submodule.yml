@@ -1,4 +1,4 @@
-Name: Update Submodule Monthly
+name: Update Submodule Monthly
 
 on:
   schedule:
