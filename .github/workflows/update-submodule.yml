@@ -1,9 +1,9 @@
-name: Update Submodule Weekly
+Name: Update Submodule Monthly
 
 on:
   schedule:
-    - cron: "0 0 * * 0"   # Sunday 00:00 UTC
-  workflow_dispatch:      # Manual trigger
+    - cron: "30 6 12 * *"      # monthly
+  workflow_dispatch:         # Manual trigger
 
 jobs:
   update-submodule:
@@ -34,6 +34,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: auto update submodule (weekly)"
+            git commit -m "chore: auto update submodule (monthly)"
             git push
           fi
